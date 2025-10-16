@@ -102,7 +102,7 @@ cd crudProductos_Mined
 docker-status.bat
 
 # 3. Ejecutar sistema completo
-docker-start.bat
+docker-simple.bat
 
 # 4. Acceder a las URLs:
 # - Frontend: http://localhost:4200
@@ -110,13 +110,8 @@ docker-start.bat
 # - Database: localhost:3307
 ```
 
-#### **Método 2: Docker Simple**
-```bash
-# Para setup más básico y rápido
-docker-simple.bat
-```
 
-#### **Método 3: Solo MySQL en Docker** 🏃
+#### **Método 2: Solo MySQL en Docker** 🏃
 ```bash
 # 1. Iniciar solo base de datos
 mysql-only.bat
