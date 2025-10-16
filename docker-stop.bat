@@ -28,9 +28,14 @@ if exist "docker-compose-auto.yml" (
     echo Deteniendo configuración auto-generada...
     docker-compose -f docker-compose-auto.yml down
 )
-:: Usar configuración principal
-echo Deteniendo configuración principal...
-docker-compose down
+if exist "docker-compose-simple.yml" (
+    echo Deteniendo configuración simple...
+    docker-compose -f docker-compose-simple.yml down
+)
+if exist "docker-compose-mysql-only.yml" (
+    echo Deteniendo MySQL...
+    docker-compose -f docker-compose-mysql-only.yml down
+)
 
 :: Fallback: detener por nombre específico
 docker stop crud-mysql crud-backend crud-frontend crud-mysql-only 2>nul

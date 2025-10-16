@@ -6,7 +6,7 @@ echo ========================================
 echo.
 
 echo [1] Iniciando solo MySQL en Docker...
-docker-compose up -d mysql
+docker-compose -f docker-compose-mysql-only.yml up -d
 
 echo.
 echo [2] Esperando que MySQL esté listo...
@@ -34,6 +34,6 @@ echo - Backend:  http://localhost:8089 (cuando lo inicies)
 echo - Frontend: http://localhost:4200 (cuando lo inicies)
 echo.
 echo Para detener MySQL:
-echo   docker-compose stop mysql
+echo   docker-compose -f docker-compose-mysql-only.yml down
 echo.
 pause
