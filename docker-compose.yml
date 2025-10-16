@@ -1,0 +1,63 @@
+services:
+  # Base de datos MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: crud-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: crud_productos
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - "3307:3306"  # Usar puerto 3307 externamente
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker-init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - crud-network
+
+  # Backend Spring Boot
+  backend:
+    build:
+      context: ./crudProductos_Mined
+      dockerfile: Dockerfile
+    container_name: crud-backend
+    restart: always
+    ports:
+      - "8089:8089"
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/crud_productos?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+    volumes:
+      - ./crudProductos_Mined:/app
+    networks:
+      - crud-network
+
+  # Frontend Angular
+  frontend:
+    build:
+      context: ./crud-productos-ui
+      dockerfile: Dockerfile
+    container_name: crud-frontend
+    restart: always
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    volumes:
+      - ./crud-productos-ui:/app
+      - /app/node_modules
+    networks:
+      - crud-network
+
+volumes:
+  mysql_data:
+
+networks:
+  crud-network:
+    driver: bridge
