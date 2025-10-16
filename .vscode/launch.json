@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CrudProductosMinedApplication<crudProductos_Mined>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.mined.crud.crudProductos_Mined.CrudProductosMinedApplication",
+            "projectName": "crudProductos_Mined",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
